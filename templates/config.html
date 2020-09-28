@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Configuraciones
+{% endblock %}
+
+{% block style %}
+    <style>
+        .container{
+           padding-top: 25px;
+           padding: 20px;
+        }
+
+        .titleh1{
+           padding-bottom: 50px;
+        }
+        .form-group{
+           padding: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% set active_page = "" %}
+
+{% block body %}
+
+    {% if warning %}
+        <div class="alert alert-danger" role="alert">
+            <center>{{message}}</center>
+        </div>
+    {% endif %}
+
+    <h1>Configuraciones</h1>
+
+    <div class="container">
+        <table class="table">
+            <thead class="text-warning">
+                <th>ID Cuenta</th>
+                <th>Usuario</th>
+                <th>Tema</th>
+            </thead>
+                <tr>
+                    <td>{{ user_id }}</td>
+                    <td>{{ username }}</td>
+                    <td>{{ color }}</td>
+                </tr>
+        </table>
+    </div>
+
+    <div class="container">
+        <h1 class="titleh1">Cambiar Contraseña</h1>
+        <form action="/config.html" method="post">
+            <div class="form-group">
+                <label for="password" class="bmd-label-floating">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+
+            <div class="form-group">
+                <label for="newpassword" class="bmd-label-floating">Nueva Contraseña</label>
+                <input type="password" class="form-control" id="newpassword" name="newpassword">
+            </div>
+
+            <div class="form-group">
+                <label for="confirm" class="bmd-label-floating">Confirme Contraseña</label>
+                <input type="password" class="form-control" id="confirm" name="confirm">
+            </div>
+            <button type="submit" class="btn btn-success">Cambiar</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <h1 class="login-h1">Cambiar Tema</h1>
+
+        <form action="/color" method="post">
+            <button type="submit" class="btn btn-warning">Cambiar</button>
+        </form>
+
+    </div>
+
+{% endblock %}

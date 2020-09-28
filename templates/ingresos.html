@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Ingresos
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% set active_page = "./ingresos.html" %}
+
+{% block body %}
+
+    <h1>Ingresos</h1>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <!-- colores primary | info | success | warning | danger | rose. -->
+            <div class="card-header card-header-info">
+              <h4 class="card-title ">Ingresos</h4>
+              <p class="card-category"> Ingresos del mes</p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class=" text-primary">
+                    <th>
+                      ID
+                    </th>
+                    <th>
+                      Fecha
+                    </th>
+                    <th>
+                      Item
+                    </th>
+                    <th>
+                      Cantidad
+                    </th>
+                    <th>
+                      Costo Unitario
+                    </th>
+                    <th>
+                      Total
+                    </th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        1
+                      </td>
+                      <td>
+                        26-09-2020
+                      </td>
+                      <td>
+                        Venta mantagua
+                      </td>
+                      <td>
+                        12
+                      </td>
+                      <td>
+                        $250
+                      </td>
+                      <td class="text-info">
+                        <b>$6000</b>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}

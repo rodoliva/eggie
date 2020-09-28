@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Finanzas
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% set active_page = "./finanzas.html" %}
+
+{% block body %}
+
+    <h1>Finanzas</h1>
+
+    <div class="row">
+        <!-- Gráfico 1 -->
+        <div class="col-md-6">
+          <div class="card card-chart">
+            <!-- colores primary | info | success | warning | danger | rose. -->
+            <div class="card-header card-chart card-header-info">
+              <div class="ct-chart" id="dailySalesChart"></div>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Daily Sales</h4>
+              <p class="card-category"><span class="text-info"><i class="fa fa-long-arrow-up"></i> 55%  </span> increase in today sales.</p>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">access_time</i> updated 4 minutes ago
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Gráfico 2 -->
+        <div class="col-md-6">
+        <div class="card card-chart">
+          <div class="card-header card-chart card-header-danger">
+            <div class="ct-chart" id="completedTasksChart"></div>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Completed Tasks</h4>
+            <p class="card-category">Last Campaign Performance</p>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">access_time</i> updated 2 minutes ago
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Costos
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% set active_page = "./costos.html" %}
+
+{% block body %}
+
+    <h1>Costos</h1>
+
+          <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <!-- colores primary | info | success | warning | danger | rose. -->
+            <div class="card-header card-header-danger">
+              <h4 class="card-title ">Costos</h4>
+              <p class="card-category"> Costos del mes:</p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class=" text-primary">
+                    <th>
+                      ID
+                    </th>
+                    <th>
+                      Fecha
+                    </th>
+                    <th>
+                      Item
+                    </th>
+                    <th>
+                      Cantidad
+                    </th>
+                    <th>
+                      Costo Unitario
+                    </th>
+                    <th>
+                      Total
+                    </th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        1
+                      </td>
+                      <td>
+                        26-09-2020
+                      </td>
+                      <td>
+                        Trigo
+                      </td>
+                      <td>
+                        2
+                      </td>
+                      <td>
+                        $510
+                      </td>
+                      <td class="text-danger">
+                        <b>$1020</b>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% endblock %}
