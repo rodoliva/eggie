@@ -5,13 +5,166 @@
 {% endblock %}
 
 {% block style %}
-
+  .titleh1{
+     padding-bottom: 50px;
+  }
+  .titleh2{
+    padding: 20px;
+  }
 {% endblock %}
 
 {% set active_page = "./incubadoras.html" %}
 
 {% block body %}
 
-    <h1>Incubadoras</h1>
+    {% if warning %}
+        <div class="alert alert-danger" role="alert">
+            <center>{{message}}</center>
+        </div>
+    {% endif %}
+
+    <h1 class="titleh1">Incubadoras</h1>
+
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <!-- colores primary | info | success | warning | danger | rose. -->
+            <div class="card-header card-header-info">
+              <h4 class="card-title ">Nuevo o actualizar:</h4>
+              <p class="card-category"> Actualizar por descripción de incubadora </p>
+            </div>
+            <div class="card-body">
+
+               <form action="/incubadoras.html" method="post">
+                    <div class="row">
+
+                      <div class="col">
+                        <div class="form-group">
+                         <center>
+                           <label for="name">Descripción</label>
+                           <input autocomplete="off" autofocus type="text" class="form-control" id="name" name="name">
+                         </center>
+                        </div>
+                      </div>
+
+                      <div class="col">
+                        <div class="form-group">
+                          <center>
+                             <label for="quantity">Cantidad:</label>
+                             <input type="number" id="quantity" name="quantity" step="1" class="form-control">
+                          </center>
+                        </div>
+                      </div>
+
+                      <div class="col">
+                        <div class="form-group">
+                            <center>
+                              <label for="date_start">Inicio</label>
+                              <input class="form-control" type="date" id="date_start" name="date_start"
+                                value={{today}} min="2020-01-01" max="2022-12-31">
+                            </center>
+                        </div>
+                      </div>
+
+                      <div class="col">
+                        <div class="form-group">
+                            <center>
+                              <label for="date_end">Final</label>
+                              <input class="form-control" type="date" id="date_end" name="date_end"
+                                value={{today}} min="2020-01-01" max="2022-12-31">
+                            </center>
+                        </div>
+                      </div>
+
+                      <div class="col">
+                        <div class="form-group">
+                          <center>
+                            <button type="submit" class="btn btn-warning">Actualizar</button>
+                          </center>
+                        </div>
+                      </div>
+
+                    </div>
+               </form>
+
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <h2 class="titleh2"></h2>
+
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <!-- colores primary | info | success | warning | danger | rose. -->
+            <div class="card-header card-header-rose">
+              <h4 class="card-title ">Gallineros disponibles</h4>
+              <p class="card-category"></p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="text-warning">
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Final</th>
+                  </thead>
+                    {% for item in inc %}
+                    <tr>
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.eggs}}</td>
+                        <td>{{item.date_start}}</td>
+                        <td>{{item.date_end}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!--Eliminar-->
+    <h2 class="titleh2"></h2>
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <!-- colores primary | info | success | warning | danger | rose. -->
+            <div class="card-header card-header-success">
+              <h4 class="card-title ">Eliminar:</h4>
+              <p class="card-category"> </p>
+            </div>
+            <div class="card-body">
+
+                <form action="/delete_inc" method="post">
+                    <div class="row">
+
+                      <div class="col">
+                        <div class="form-group">
+                          <center>
+                             <label for="inc_id">ID Gallinero</label>
+                             <input type="number" id="inc_id" name="inc_id" step="1" class="form-control">
+                          </center>
+                        </div>
+                      </div>
+
+                      <div class="col">
+                        <div class="form-group">
+                          <center>
+                            <button type="submit" class="btn btn-warning">Eliminar</button>
+                          </center>
+                        </div>
+                      </div>
+                    </div>
+                </form>
+
+            </div>
+          </div>
+        </div>
+    </div>
 
 {% endblock %}

@@ -19,144 +19,187 @@
 
     <h1 class="titleh1">Principal</h1>
 
-      <form action="/" method="post">
-        <div class="row">
-          <div class="col">
-            <center>
-              <label for="points" class="bmd-label-floating">Agregar Huevos:</label>
-              <input type="number" id="points" name="points" step="1" class="form-control">
-            </center>
-          </div>
-          <div class="col">
-            <center>
-              <button type="submit" class="btn btn-warning">Cambiar</button>
-            </center>
-          </div>
-        </div>
-      </form>
-
-    <h2 class="titleh2">Data:</h2>
-
-      <div class="row">
-        <!-- Etiqueta 1 -->
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-warning card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">whatshot</i>
-              </div>
-              <p class="card-category">Día:</p>
-              <h3 class="card-title"> {{quantity}}
-                <small>Huevos</small>
-              </h3>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">notifications_active</i> Promedio del día
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Etiqueta 2 -->
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-success card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">whatshot</i>
-              </div>
-              <p class="card-category">Mes:</p>
-              <h3 class="card-title">12
-                <small>Huevos</small>
-              </h3>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">notifications_active</i> Promedio Mes Vigencia
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Etiqueta 3 -->
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-danger card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">whatshot</i>
-              </div>
-              <p class="card-category">Total:</p>
-              <h3 class="card-title">12
-                <small>Huevos</small>
-              </h3>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">notifications_active</i> Promedio Total Acumulado
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Etiqueta 4 -->
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-info card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">whatshot</i>
-              </div>
-              <p class="card-category">Total:</p>
-              <h3 class="card-title">19
-                <small>Gallinas</small>
-              </h3>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">notifications_active</i> Total Gallinas actuales
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <h2 class="titleh2">Gráficos:</h2>
-
-      <div class="row">
-        <!-- Gráfico 1 -->
-        <div class="col-md-6">
-          <div class="card card-chart">
+    <!-- Agregar-->
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card">
             <!-- colores primary | info | success | warning | danger | rose. -->
-            <div class="card-header card-chart card-header-warning">
-              <div class="ct-chart" id="dailySalesChart"></div>
+            <div class="card-header card-header-warning">
+              <h4 class="card-title ">Agregar Huevos:</h4>
+              <p class="card-category"> </p>
             </div>
             <div class="card-body">
-              <h4 class="card-title">Daily Sales</h4>
-              <p class="card-category"><span class="text-success"><i class="fa fa-long-arrow-up"></i> 55%  </span> increase in today sales.</p>
+
+              <form action="/" method="post">
+                <div class="row">
+                  <div class="col">
+                    <center>
+                      <label for="points">Ingresar Cantidad:</label>
+                      <input type="number" id="points" name="points" step="1" class="form-control">
+                    </center>
+                  </div>
+                  <div class="col">
+                    <center>
+                      <button type="submit" class="btn btn-warning">Actualizar</button>
+                    </center>
+                  </div>
+                </div>
+              </form>
+
             </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">access_time</i> updated 4 minutes ago
+          </div>
+        </div>
+    </div>
+
+    <h2 class="titleh2"></h2>
+    <!-- Estadísticas-->
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <!-- colores primary | info | success | warning | danger | rose. -->
+            <div class="card-header card-header-info">
+              <h4 class="card-title ">Estadísticas:</h4>
+              <p class="card-category"> </p>
+            </div>
+            <div class="card-body">
+
+              <div class="row">
+                <!-- Etiqueta 1 -->
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                  <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                      <div class="card-icon">
+                        <i class="material-icons">whatshot</i>
+                      </div>
+                      <p class="card-category">Día:</p>
+                      <h3 class="card-title"> {{quantity}}
+                        <small>Huevos</small>
+                      </h3>
+                    </div>
+                    <div class="card-footer">
+                      <div class="stats">
+                        <i class="material-icons">notifications_active</i> Promedio del día
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Etiqueta 2 -->
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                  <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                      <div class="card-icon">
+                        <i class="material-icons">whatshot</i>
+                      </div>
+                      <p class="card-category">Mes:</p>
+                      <h3 class="card-title">12
+                        <small>Huevos</small>
+                      </h3>
+                    </div>
+                    <div class="card-footer">
+                      <div class="stats">
+                        <i class="material-icons">notifications_active</i> Promedio Mes Vigencia
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Etiqueta 3 -->
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                  <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                      <div class="card-icon">
+                        <i class="material-icons">whatshot</i>
+                      </div>
+                      <p class="card-category">Total:</p>
+                      <h3 class="card-title">12
+                        <small>Huevos</small>
+                      </h3>
+                    </div>
+                    <div class="card-footer">
+                      <div class="stats">
+                        <i class="material-icons">notifications_active</i> Promedio Total Acumulado
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Etiqueta 4 -->
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                  <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                      <div class="card-icon">
+                        <i class="material-icons">whatshot</i>
+                      </div>
+                      <p class="card-category">Total:</p>
+                      <h3 class="card-title">19
+                        <small>Gallinas</small>
+                      </h3>
+                    </div>
+                    <div class="card-footer">
+                      <div class="stats">
+                        <i class="material-icons">notifications_active</i> Total Gallinas actuales
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
+
             </div>
           </div>
         </div>
-        <!-- Gráfico 2 -->
-        <div class="col-md-6">
-        <div class="card card-chart">
-          <div class="card-header card-chart card-header-success">
-            <div class="ct-chart" id="completedTasksChart"></div>
-          </div>
-          <div class="card-body">
-            <h4 class="card-title">Completed Tasks</h4>
-            <p class="card-category">Last Campaign Performance</p>
-          </div>
-          <div class="card-footer">
-            <div class="stats">
-              <i class="material-icons">access_time</i> updated 2 minutes ago
+    </div>
+
+    <h2 class="titleh2"></h2>
+    <!-- Gráficos-->
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <!-- colores primary | info | success | warning | danger | rose. -->
+            <div class="card-header card-header-success">
+              <h4 class="card-title ">Gráficas:</h4>
+              <p class="card-category"> </p>
+            </div>
+            <div class="card-body">
+
+              <div class="row">
+                <!-- Gráfico 1 -->
+                <div class="col-md-6">
+                  <div class="card card-chart">
+                    <!-- colores primary | info | success | warning | danger | rose. -->
+                    <div class="card-header card-chart card-header-warning">
+                      <div class="ct-chart" id="dailySalesChart"></div>
+                    </div>
+                    <div class="card-body">
+                      <h4 class="card-title">Daily Sales</h4>
+                      <p class="card-category"><span class="text-success"><i class="fa fa-long-arrow-up"></i> 55%  </span> increase in today sales.</p>
+                    </div>
+                    <div class="card-footer">
+                      <div class="stats">
+                        <i class="material-icons">access_time</i> updated 4 minutes ago
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Gráfico 2 -->
+                <div class="col-md-6">
+                <div class="card card-chart">
+                  <div class="card-header card-chart card-header-success">
+                    <div class="ct-chart" id="completedTasksChart"></div>
+                  </div>
+                  <div class="card-body">
+                    <h4 class="card-title">Completed Tasks</h4>
+                    <p class="card-category">Last Campaign Performance</p>
+                  </div>
+                  <div class="card-footer">
+                    <div class="stats">
+                      <i class="material-icons">access_time</i> updated 2 minutes ago
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+
             </div>
           </div>
         </div>
-      </div>
-      </div>
-
-
-
+    </div>
 
 {% endblock %}
