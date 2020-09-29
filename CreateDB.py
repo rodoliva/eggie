@@ -59,18 +59,22 @@ class Cost(db.Model):
         self.tot_cost = tot_cost
 
 
-class Income(db.Model):
-    __tablename__ = 'income'
+class Sales(db.Model):
+    __tablename__ = 'sales'
     id = db.Column(db.Integer, primary_key=True)
     item = db.Column(db.String, default="")
     quantity = db.Column(db.Integer, default=0)
+    un_income = db.Column(db.Integer, default=0)
     income = db.Column(db.Integer, default=0)
+    desc = db.Column(db.Integer, default=0)
     date = db.Column(db.Date, default=date.today())
 
-    def __init__(self, item, quantity, income):
+    def __init__(self, item, quantity, un_income, income, desc):
         self.item = item
         self.quantity = quantity
+        self.un_income = un_income
         self.income = income
+        self.desc = desc
 
 
 class ChickenCoop(db.Model):
@@ -117,17 +121,17 @@ class Nest(db.Model):
         self.date_end = date_end
 
 
-class UnitaryCost(db.Model):
-    __tablename__ = 'unitary_cost'
+class UnitaryPrice(db.Model):
+    __tablename__ = 'unitary_price'
     id = db.Column(db.Integer, primary_key=True)
-    un_cost = db.Column(db.Integer, nullable=False)
+    un_price = db.Column(db.Integer, nullable=False)
     x6 = db.Column(db.Integer, nullable=False)
     x12 = db.Column(db.Integer, nullable=False)
     x24 = db.Column(db.Integer, nullable=False)
     x30 = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, un_cost, x6, x12, x24, x30):
-        self.un_cost = un_cost
+    def __init__(self, un_price, x6, x12, x24, x30):
+        self.un_price = un_price
         self.x6 = x6
         self.x12 = x12
         self.x24 = x24
@@ -140,7 +144,7 @@ def default():
     start = 200
     for i in range(0, 16):
         aux = start + (i * 10)
-        cost = UnitaryCost(aux, aux * 6, aux * 12, aux * 24, aux * 30)
+        cost = UnitaryPrice(aux, aux * 6, aux * 12, aux * 24, aux * 30)
         db.session.add(cost)
 
     db.session.commit()

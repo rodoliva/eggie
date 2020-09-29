@@ -6,7 +6,7 @@
 
 from flask import redirect, render_template, flash, request, url_for, abort
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
-from models import db, app, User, Eggs, Cost, Income, ChickenCoop, Incubator, Nest, UnitaryCost
+from models import db, app, User, Eggs, Cost, Sales, ChickenCoop, Incubator, Nest, UnitaryPrice
 from datetime import date, datetime
 
 
@@ -202,12 +202,10 @@ def incubadoras():
         date_start = datetime.strptime(request.form.get("date_start"), '%Y-%m-%d')
         date_end = datetime.strptime(request.form.get("date_end"), '%Y-%m-%d')
         inc = []
-        print(name, eggs, date_start, type(date_end))
 
         # new incubator with no data in database
         if condition == False:
             update = Incubator(name, eggs, date_start, date_end)
-            print(update.name, update.eggs, update, date_start, update, date_end)
             db.session.add(update)
             db.session.commit()
             inc.append(update)
@@ -256,6 +254,85 @@ def delete_inc():
         db.session.commit()
         return redirect("./incubadoras.html")
     return redirect("./incubadoras.html")
+
+
+@app.route('/ponederos.html', methods=["GET", "POST"])
+@login_required
+def ponederos():
+    global theme, today
+
+    data = Nest.query.all()
+    condition = True
+
+    if not data:
+        condition = False
+
+    if request.method == "POST":
+
+        if not request.form.get("name") or not request.form.get("quantity") or not request.form.get("date_start") or not request.form.get("date_end"):
+            if condition == False:
+                return render_template("./ponederos.html", message="Debe ingresar todos los datos", warning=True,
+                                       color=theme, pon=[], today=today)
+            return render_template("./ponederos.html", message="Debe ingresar todos los datos", warning=True,
+                                   color=theme, pon=data, today=today)
+
+        name = request.form.get("name")
+        chickens = int(request.form.get("quantity"))
+        date_start = datetime.strptime(request.form.get("date_start"), '%Y-%m-%d')
+        date_end = datetime.strptime(request.form.get("date_end"), '%Y-%m-%d')
+        inc = []
+
+        # new Nest with no data in database
+        if condition == False:
+            update = Nest(name, chickens, date_start, date_end)
+            db.session.add(update)
+            db.session.commit()
+            inc.append(update)
+            return render_template('./ponederos.html', color=theme, inc=inc, today=today)
+
+        update = Nest.query.filter_by(name=name).first()
+
+        # new Nest
+        if not update:
+            update = Nest(name, chickens, date_start, date_end)
+            db.session.add(update)
+            db.session.commit()
+            data = Nest.query.all()
+            return render_template('./ponederos.html', color=theme, inc=data, today=today)
+
+        # update Nest
+        update = Nest.query.filter_by(name=name).first()
+        update.name = name
+        update.eggs = chickens
+        update.date_start = date_start
+        update.date_end = date_end
+        db.session.merge(update)
+        db.session.commit()
+        data = Nest.query.all()
+        return render_template('./ponederos.html', color=theme, inc=data, today=today)
+
+    if condition == True:
+        return render_template('./ponederos.html', color=theme, inc=data, today=today)
+    return render_template('./ponederos.html', color=theme, inc=[], today=today)
+
+
+@app.route('/delete_pon', methods=["GET", "POST"])
+@login_required
+def delete_pon():
+    if request.method == "POST":
+
+        if not request.form.get("pon_id"):
+            return redirect("./ponederos.html")
+
+        pon = Nest.query.filter_by(id=request.form.get("pon_id")).first()
+
+        if not pon:
+            return redirect("./ponederos.html")
+
+        db.session.delete(pon)
+        db.session.commit()
+        return redirect("./ponederos.html")
+    return redirect("./ponederos.html")
 
 
 @app.route('/costos.html', methods=["GET", "POST"])
@@ -313,6 +390,64 @@ def delete_cost():
         db.session.commit()
         return redirect("./costos.html")
     return redirect("./costos.html")
+
+
+@app.route('/ventas.html', methods=["GET", "POST"])
+@login_required
+def ventas():
+
+    global theme, today
+
+    data = Sales.query.order_by(Sales.date).all()
+    prices = UnitaryPrice.query.all()
+    condition = True
+
+    if not data:
+        condition = False
+
+    if request.method == "POST":
+
+        if not request.form.get("name") or not request.form.get("quantity") or not request.form.get("unitary")or not request.form.get("desc"):
+            if condition == False:
+                return render_template('./ventas.html', message="Debe ingresar todos los datos", warning=True,
+                                       color=theme, sales=[], prices=prices)
+            return render_template('./ventas.html', message="Debe ingresar todos los datos ", warning=True,
+                                   color=theme, sales=data, prices=prices)
+
+        name = request.form.get("name")
+        quantity = int(request.form.get("quantity"))
+        unitary = int(request.form.get("unitary"))
+        desc = int(request.form.get("desc"))
+        income = unitary * quantity - desc
+        new = Sales(name, quantity, unitary, income, desc)
+        db.session.add(new)
+        db.session.commit()
+        data = Sales.query.order_by(Sales.date).all()
+        return render_template("./ventas.html", color=theme, sales=data, prices=prices)
+
+    if condition == True:
+        return render_template("./ventas.html", color=theme, sales=data, prices=prices)
+    return render_template("./ventas.html", color=theme, sales=[], prices=prices)
+
+
+@app.route('/delete_sale', methods=["GET", "POST"])
+@login_required
+def delete_sale():
+
+    if request.method == "POST":
+
+        if not request.form.get("sale_id"):
+            return redirect("./ventas.html")
+
+        sale = Sales.query.filter_by(id=request.form.get("sale_id")).first()
+
+        if not sale:
+            return redirect("./ventas.html")
+
+        db.session.delete(sale)
+        db.session.commit()
+        return redirect("./ventas.html")
+    return redirect("./ventas.html")
 
 
 @app.route('/config.html', methods=["GET", "POST"])

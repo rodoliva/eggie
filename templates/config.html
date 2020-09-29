@@ -32,49 +32,91 @@
 
     <h1>Configuraciones</h1>
 
-    <div class="container">
-        <table class="table">
-            <thead class="text-warning">
-                <th>ID Cuenta</th>
-                <th>Usuario</th>
-                <th>Tema</th>
-            </thead>
-                <tr>
-                    <td>{{ user_id }}</td>
-                    <td>{{ username }}</td>
-                    <td>{{ color }}</td>
-                </tr>
-        </table>
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <!-- colores primary | info | success | warning | danger | rose. -->
+            <div class="card-header card-header-warning">
+              <h4 class="card-title ">Usuario</h4>
+              <p class="card-category"> </p>
+            </div>
+            <div class="card-body">
+
+                <div class="container">
+                    <table class="table">
+                        <thead class="text-warning">
+                            <th>ID Cuenta</th>
+                            <th>Usuario</th>
+                            <th>Tema</th>
+                        </thead>
+                            <tr>
+                                <td>{{ user_id }}</td>
+                                <td>{{ username }}</td>
+                                <td>{{ color }}</td>
+                            </tr>
+                    </table>
+                </div>
+
+            </div>
+          </div>
+        </div>
     </div>
 
-    <div class="container">
-        <h1 class="titleh1">Cambiar Contraseña</h1>
-        <form action="/config.html" method="post">
-            <div class="form-group">
-                <label for="password" class="bmd-label-floating">Contraseña</label>
-                <input type="password" class="form-control" id="password" name="password">
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <!-- colores primary | info | success | warning | danger | rose. -->
+            <div class="card-header card-header-danger">
+              <h4 class="card-title ">Cambiar Contraseña:</h4>
+              <p class="card-category"> </p>
             </div>
+            <div class="card-body">
 
-            <div class="form-group">
-                <label for="newpassword" class="bmd-label-floating">Nueva Contraseña</label>
-                <input type="password" class="form-control" id="newpassword" name="newpassword">
-            </div>
+                <div class="container">
+                    <form action="/config.html" method="post">
+                        <div class="form-group">
+                            <label for="password" class="bmd-label-floating">Contraseña</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
 
-            <div class="form-group">
-                <label for="confirm" class="bmd-label-floating">Confirme Contraseña</label>
-                <input type="password" class="form-control" id="confirm" name="confirm">
+                        <div class="form-group">
+                            <label for="newpassword" class="bmd-label-floating">Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="newpassword" name="newpassword">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirm" class="bmd-label-floating">Confirme Contraseña</label>
+                            <input type="password" class="form-control" id="confirm" name="confirm">
+                        </div>
+                        <button type="submit" class="btn btn-success">Cambiar</button>
+                    </form>
+                </div>
+
             </div>
-            <button type="submit" class="btn btn-success">Cambiar</button>
-        </form>
+          </div>
+        </div>
     </div>
 
-    <div class="container">
-        <h1 class="login-h1">Cambiar Tema</h1>
 
-        <form action="/color" method="post">
-            <button type="submit" class="btn btn-warning">Cambiar</button>
-        </form>
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <!-- colores primary | info | success | warning | danger | rose. -->
+            <div class="card-header card-header-info">
+              <h4 class="card-title ">Cambiar Tema</h4>
+              <p class="card-category"> </p>
+            </div>
+            <div class="card-body">
 
+                <div class="container">
+                    <form action="/color" method="post">
+                        <button type="submit" class="btn btn-warning">Cambiar</button>
+                    </form>
+                </div>
+
+            </div>
+          </div>
+        </div>
     </div>
 
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Ingresos
+    Ventas
 {% endblock %}
 
 {% block style %}
@@ -13,7 +13,7 @@
   }
 {% endblock %}
 
-{% set active_page = "./ingresos.html" %}
+{% set active_page = "./ventas.html" %}
 
 {% block body %}
 
@@ -23,20 +23,20 @@
         </div>
     {% endif %}
 
-    <h1 class="titleh1">Costos</h1>
+    <h1 class="titleh1">Ventas</h1>
 
     <!--Ingresar Ventas-->
     <div class="row">
         <div class="col-md-12">
           <div class="card">
             <!-- colores primary | info | success | warning | danger | rose. -->
-            <div class="card-header card-header-info">
+            <div class="card-header card-header-success">
               <h4 class="card-title ">Ingresar:</h4>
               <p class="card-category"> </p>
             </div>
             <div class="card-body">
 
-                <form action="./costos.html" method="post">
+                <form action="./ventas.html" method="post">
                     <div class="row">
                       <div class="col">
                         <div class="form-group">
@@ -49,24 +49,36 @@
                       <div class="col">
                         <div class="form-group">
                           <center>
-                             <label for="quantity">Cantidad</label>
-                             <input type="number" id="quantity" name="quantity" step="1" class="form-control">
+                              <label for="quantity">Cantidad</label>
+                                <input list="options" name="quantity" id="quantity" class="form-control" placeholder="0">
+                                <datalist id="options">
+                                    <option value="6">
+                                    <option value="12">
+                                    <option value="24">
+                                    <option value="30">
+                                </datalist>
                           </center>
                         </div>
                       </div>
                       <div class="col">
+
                         <div class="form-group">
                             <center>
-                              <label for="unitary">Valor Unitario</label>
-                              <input type="number" id="unitary" name="unitary" step="1" class="form-control">
+                              <label for="unitary">Precio unitario</label>
+                                <input list="unit" name="unitary" id="unitary" class="form-control" placeholder="0">
+                                <datalist id="unit">
+                                    {% for item in prices %}
+                                        <option value={{item.un_price}}>
+                                    {% endfor %}
+                                </datalist>
                             </center>
                         </div>
                       </div>
                       <div class="col">
                         <div class="form-group">
                             <center>
-                              <label for="total">Total</label>
-                              <input type="number" id="total" name="total" step="1" class="form-control">
+                              <label for="desc">Descuento</label>
+                              <input type="number" id="desc" name="desc" step="1" class="form-control" placeholder="0">
                             </center>
                         </div>
                       </div>
@@ -91,8 +103,8 @@
         <div class="col-md-12">
           <div class="card">
             <!-- colores primary | info | success | warning | danger | rose. -->
-            <div class="card-header card-header-danger">
-              <h4 class="card-title ">Costos:</h4>
+            <div class="card-header card-header-info">
+              <h4 class="card-title ">Ventas:</h4>
               <p class="card-category"> </p>
             </div>
             <div class="card-body">
@@ -102,17 +114,19 @@
                     <th>ID</th>
                     <th>Descripción</th>
                     <th>Cantidad</th>
-                    <th>Costo Unitario</th>
-                    <th>Costo Total</th>
+                    <th>Valor Unitario</th>
+                    <th>Descuento</th>
+                    <th>Total</th>
                     <th>Fecha</th>
                   </thead>
-                      {% for item in cost %}
+                      {% for item in sales %}
                       <tr>
                           <td>{{item.id}}</td>
                           <td>{{item.item}}</td>
                           <td>{{item.quantity}}</td>
-                          <td>{{item.un_cost}}</td>
-                          <td>{{item.tot_cost}}</td>
+                          <td>{{item.un_income}}</td>
+                          <td>{{item.desc}}</td>
+                          <td>{{item.income}}</td>
                           <td>{{item.date}}</td>
                       </tr>
                       {% endfor %}
@@ -129,20 +143,20 @@
         <div class="col-md-12">
           <div class="card">
             <!-- colores primary | info | success | warning | danger | rose. -->
-            <div class="card-header card-header-success">
+            <div class="card-header card-header-danger">
               <h4 class="card-title ">Eliminar:</h4>
               <p class="card-category"> </p>
             </div>
             <div class="card-body">
 
-                <form action="/delete_cost" method="post">
+                <form action="/delete_sale" method="post">
                     <div class="row">
 
                       <div class="col">
                         <div class="form-group">
                           <center>
-                             <label for="cost_id">ID Costo</label>
-                             <input type="number" id="cost_id" name="cost_id" step="1" class="form-control">
+                             <label for="sale_id">ID Venta</label>
+                             <input type="number" id="sale_id" name="sale_id" step="1" class="form-control">
                           </center>
                         </div>
                       </div>
