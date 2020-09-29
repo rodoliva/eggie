@@ -54,8 +54,8 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav" id="navigation">
-          {% set navigation_bar = [['./', 'dashboard', 'Principal'], ['./finanzas.html', 'grading', 'Finanzas'],
-          ['./ventas.html', 'leaderboard', 'Ventas'], ['./costos.html', 'donut_small', 'Costos'], ['./gallineros.html', 'storefront', 'Gallineros']
+          {% set navigation_bar = [['./', 'dashboard', 'Principal'], ['./ventas.html', 'leaderboard', 'Ventas'],
+          ['./costos.html', 'donut_small', 'Costos'], ['./gallineros.html', 'storefront', 'Gallineros']
           , ['./incubadoras.html', 'microwave', 'Incubadoras'], ['./ponederos.html', 'house_siding', 'Ponederos']] %}
           {% set active_page = active_page|default('index') %}
           {% for item in navigation_bar %}

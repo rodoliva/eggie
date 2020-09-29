@@ -137,6 +137,7 @@ class UnitaryPrice(db.Model):
         self.x24 = x24
         self.x30 = x30
 
+
 def default():
     default_user = User('admin', 'secret')
     db.session.add(default_user)

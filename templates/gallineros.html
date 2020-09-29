@@ -90,11 +90,22 @@
               <div class="table-responsive">
                 <table class="table">
                   <thead class="text-warning">
+                  <tr>
                     <th>ID</th>
                     <th>Descripción</th>
                     <th>Gallinas</th>
                     <th>Gallos</th>
+                  </tr>
                   </thead>
+                  <tfoot>
+                  <tr class="text-warning">
+                    <td><b>Total:</b></td>
+                    <td colspan="1"></td>
+                    <td><b>{{totalc}}</b></td>
+                    <td><b>{{totalr}}</b></td>
+                  </tr>
+                  </tfoot>
+                  <tbody>
                     {% for item in coop %}
                     <tr>
                         <td>{{item.id}}</td>
@@ -103,6 +114,7 @@
                         <td>{{item.roosters}}</td>
                     </tr>
                     {% endfor %}
+                  </tbody>
                 </table>
               </div>
             </div>

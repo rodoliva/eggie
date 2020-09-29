@@ -52,13 +52,13 @@
     </div>
 
     <h2 class="titleh2"></h2>
-    <!-- Estadísticas-->
+    <!-- Huevos-->
     <div class="row">
         <div class="col-md-12">
           <div class="card">
             <!-- colores primary | info | success | warning | danger | rose. -->
             <div class="card-header card-header-info">
-              <h4 class="card-title ">Estadísticas:</h4>
+              <h4 class="card-title ">Huevos:</h4>
               <p class="card-category"> </p>
             </div>
             <div class="card-body">
@@ -71,14 +71,14 @@
                       <div class="card-icon">
                         <i class="material-icons">whatshot</i>
                       </div>
-                      <p class="card-category">Día:</p>
-                      <h3 class="card-title"> {{quantity}}
+                      <p class="card-category">Huevos Día:</p>
+                      <h3 class="card-title"> {{eggs[0]}}
                         <small>Huevos</small>
                       </h3>
                     </div>
                     <div class="card-footer">
                       <div class="stats">
-                        <i class="material-icons">notifications_active</i> Promedio del día
+                        <i class="material-icons">notifications_active</i> Cantidad del día
                       </div>
                     </div>
                   </div>
@@ -90,14 +90,14 @@
                       <div class="card-icon">
                         <i class="material-icons">whatshot</i>
                       </div>
-                      <p class="card-category">Mes:</p>
-                      <h3 class="card-title">12
+                      <p class="card-category">Huevos Mes:</p>
+                      <h3 class="card-title"> {{eggs[1]}}
                         <small>Huevos</small>
                       </h3>
                     </div>
                     <div class="card-footer">
                       <div class="stats">
-                        <i class="material-icons">notifications_active</i> Promedio Mes Vigencia
+                        <i class="material-icons">notifications_active</i> Cantidad del mes en vigencia
                       </div>
                     </div>
                   </div>
@@ -109,14 +109,14 @@
                       <div class="card-icon">
                         <i class="material-icons">whatshot</i>
                       </div>
-                      <p class="card-category">Total:</p>
-                      <h3 class="card-title">12
+                      <p class="card-category">Prom Mes:</p>
+                      <h3 class="card-title"> {{eggs[2]}}
                         <small>Huevos</small>
                       </h3>
                     </div>
                     <div class="card-footer">
                       <div class="stats">
-                        <i class="material-icons">notifications_active</i> Promedio Total Acumulado
+                        <i class="material-icons">notifications_active</i> Promedio huevos al mes en vigencia
                       </div>
                     </div>
                   </div>
@@ -129,13 +129,13 @@
                         <i class="material-icons">whatshot</i>
                       </div>
                       <p class="card-category">Total:</p>
-                      <h3 class="card-title">19
-                        <small>Gallinas</small>
+                      <h3 class="card-title">{{eggs[3]}}
+                        <small>Huevos</small>
                       </h3>
                     </div>
                     <div class="card-footer">
                       <div class="stats">
-                        <i class="material-icons">notifications_active</i> Total Gallinas actuales
+                        <i class="material-icons">notifications_active</i> Total
                       </div>
                     </div>
                   </div>
@@ -148,53 +148,193 @@
     </div>
 
     <h2 class="titleh2"></h2>
-    <!-- Gráficos-->
+    <!-- Animales-->
     <div class="row">
         <div class="col-md-12">
           <div class="card">
             <!-- colores primary | info | success | warning | danger | rose. -->
-            <div class="card-header card-header-success">
-              <h4 class="card-title ">Gráficas:</h4>
+            <div class="card-header card-header-primary">
+              <h4 class="card-title ">Animales:</h4>
               <p class="card-category"> </p>
             </div>
             <div class="card-body">
 
               <div class="row">
-                <!-- Gráfico 1 -->
-                <div class="col-md-6">
-                  <div class="card card-chart">
-                    <!-- colores primary | info | success | warning | danger | rose. -->
-                    <div class="card-header card-chart card-header-warning">
-                      <div class="ct-chart" id="dailySalesChart"></div>
-                    </div>
-                    <div class="card-body">
-                      <h4 class="card-title">Daily Sales</h4>
-                      <p class="card-category"><span class="text-success"><i class="fa fa-long-arrow-up"></i> 55%  </span> increase in today sales.</p>
+                <!-- Etiqueta 1 -->
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                  <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                      <div class="card-icon">
+                        <i class="material-icons">whatshot</i>
+                      </div>
+                      <p class="card-category">Gallineros:</p>
+                      <h3 class="card-title"> {{anim[0]}}
+                        <small>Gallinas</small>
+                      </h3>
                     </div>
                     <div class="card-footer">
                       <div class="stats">
-                        <i class="material-icons">access_time</i> updated 4 minutes ago
+                        <i class="material-icons">notifications_active</i> Cantidad de gallinas en gallineros
                       </div>
                     </div>
                   </div>
                 </div>
-                <!-- Gráfico 2 -->
-                <div class="col-md-6">
-                <div class="card card-chart">
-                  <div class="card-header card-chart card-header-success">
-                    <div class="ct-chart" id="completedTasksChart"></div>
-                  </div>
-                  <div class="card-body">
-                    <h4 class="card-title">Completed Tasks</h4>
-                    <p class="card-category">Last Campaign Performance</p>
-                  </div>
-                  <div class="card-footer">
-                    <div class="stats">
-                      <i class="material-icons">access_time</i> updated 2 minutes ago
+                <!-- Etiqueta 2 -->
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                  <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                      <div class="card-icon">
+                        <i class="material-icons">whatshot</i>
+                      </div>
+                      <p class="card-category">Ponederos:</p>
+                      <h3 class="card-title"> {{anim[1]}}
+                        <small>Gallinas</small>
+                      </h3>
+                    </div>
+                    <div class="card-footer">
+                      <div class="stats">
+                        <i class="material-icons">notifications_active</i> Cantidad del gallinas en ponederos
+                      </div>
                     </div>
                   </div>
                 </div>
+                <!-- Etiqueta 3 -->
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                  <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                      <div class="card-icon">
+                        <i class="material-icons">whatshot</i>
+                      </div>
+                      <p class="card-category">Total Gallinas:</p>
+                      <h3 class="card-title"> {{anim[2]}}
+                        <small>Gallinas</small>
+                      </h3>
+                    </div>
+                    <div class="card-footer">
+                      <div class="stats">
+                        <i class="material-icons">notifications_active</i> Total gallinas
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Etiqueta 4 -->
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                  <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                      <div class="card-icon">
+                        <i class="material-icons">whatshot</i>
+                      </div>
+                      <p class="card-category">Gallos:</p>
+                      <h3 class="card-title">{{anim[3]}}
+                        <small>Gallos</small>
+                      </h3>
+                    </div>
+                    <div class="card-footer">
+                      <div class="stats">
+                        <i class="material-icons">notifications_active</i> Total de gallos
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                 <!-- Etiqueta 5 -->
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                  <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                      <div class="card-icon">
+                        <i class="material-icons">whatshot</i>
+                      </div>
+                      <p class="card-category">Incubadoras:</p>
+                      <h3 class="card-title">{{anim[4]}}
+                        <small>Huevos</small>
+                      </h3>
+                    </div>
+                    <div class="card-footer">
+                      <div class="stats">
+                        <i class="material-icons">notifications_active</i> Total huevos en incubadoras
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
+
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <h2 class="titleh2"></h2>
+    <!-- Finanzas-->
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <!-- colores primary | info | success | warning | danger | rose. -->
+            <div class="card-header card-header-success">
+              <h4 class="card-title ">Finanzas:</h4>
+              <p class="card-category"> </p>
+            </div>
+            <div class="card-body">
+
+              <div class="row">
+                <!-- Etiqueta 1 -->
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                  <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                      <div class="card-icon">
+                        <i class="material-icons">whatshot</i>
+                      </div>
+                      <p class="card-category">Ventas Mes:</p>
+                      <h3 class="card-title"> {{finan[0]}}
+                        <small>Huevos</small>
+                      </h3>
+                    </div>
+                    <div class="card-footer">
+                      <div class="stats">
+                        <i class="material-icons">notifications_active</i> Cantidad del huevos vendidos en el mes
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Etiqueta 2 -->
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                  <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                      <div class="card-icon">
+                        <i class="material-icons">whatshot</i>
+                      </div>
+                      <p class="card-category">Ventas Mes:</p>
+                      <h3 class="card-title"> <b>$</b> {{finan[1]}}
+                        <small></small>
+                      </h3>
+                    </div>
+                    <div class="card-footer">
+                      <div class="stats">
+                        <i class="material-icons">notifications_active</i> Ventas del mes
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Etiqueta 3 -->
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                  <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                      <div class="card-icon">
+                        <i class="material-icons">whatshot</i>
+                      </div>
+                      <p class="card-category">Costos Mes:</p>
+                      <h3 class="card-title"><b>$</b> {{finan[2]}}
+                        <small></small>
+                      </h3>
+                    </div>
+                    <div class="card-footer">
+                      <div class="stats">
+                        <i class="material-icons">notifications_active</i> Costos del Mes
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
 
             </div>

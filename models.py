@@ -141,3 +141,4 @@ class UnitaryPrice(db.Model):
         self.x12 = x12
         self.x24 = x24
         self.x30 = x30
+

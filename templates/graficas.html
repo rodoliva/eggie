@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Finanzas
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% set active_page = "./finanzas.html" %}
+
+{% block body %}
+
+    <h2 class="titleh2"></h2>
+    <!-- Gráficos-->
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <!-- colores primary | info | success | warning | danger | rose. -->
+            <div class="card-header card-header-success">
+              <h4 class="card-title ">Gráficas:</h4>
+              <p class="card-category"> </p>
+            </div>
+            <div class="card-body">
+
+              <div class="row">
+                <!-- Gráfico 1 -->
+                <div class="col-md-6">
+                  <div class="card card-chart">
+                    <!-- colores primary | info | success | warning | danger | rose. -->
+                    <div class="card-header card-chart card-header-warning">
+                      <!-- chart1 -->
+                    </div>
+                    <div class="card-body">
+                      <h4 class="card-title">Daily Sales</h4>
+                      <p class="card-category"><span class="text-success"><i class="fa fa-long-arrow-up"></i> 55%  </span> increase in today sales.</p>
+                    </div>
+                    <div class="card-footer">
+                      <div class="stats">
+                        <i class="material-icons">access_time</i> updated 4 minutes ago
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Gráfico 2 -->
+                <div class="col-md-6">
+                <div class="card card-chart">
+                  <div class="card-header card-chart card-header-primary">
+                    <!-- chart1 -->
+                  </div>
+                  <div class="card-body">
+                    <h4 class="card-title">Completed Tasks</h4>
+                    <p class="card-category">Last Campaign Performance</p>
+                  </div>
+                  <div class="card-footer">
+                    <div class="stats">
+                      <i class="material-icons">access_time</i> updated 2 minutes ago
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+    </div>
+
+{% endblock %}

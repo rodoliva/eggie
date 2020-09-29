@@ -100,13 +100,23 @@
               <div class="table-responsive">
                 <table class="table">
                   <thead class="text-warning">
+                  <tr>
                     <th>ID</th>
                     <th>Descripción</th>
                     <th>Cantidad</th>
                     <th>Costo Unitario</th>
                     <th>Costo Total</th>
                     <th>Fecha</th>
+                  </tr>
                   </thead>
+                  <tfoot>
+                  <tr class="text-warning">
+                    <td><b>Total:</b> </td>
+                    <td colspan="3"></td>
+                    <td><b>{{total}}</b></td>
+                  </tr>
+                  </tfoot>
+                  <tbody>
                       {% for item in cost %}
                       <tr>
                           <td>{{item.id}}</td>
@@ -117,6 +127,7 @@
                           <td>{{item.date}}</td>
                       </tr>
                       {% endfor %}
+                  </tbody>
                 </table>
               </div>
             </div>

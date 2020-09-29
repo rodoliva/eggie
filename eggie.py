@@ -4,17 +4,18 @@
 # set FLASK_ENV=development
 # flask run
 
-from flask import redirect, render_template, flash, request, url_for, abort
+from flask import redirect, render_template, flash, request, url_for
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from models import db, app, User, Eggs, Cost, Sales, ChickenCoop, Incubator, Nest, UnitaryPrice
 from datetime import date, datetime
+from func import data_eggs, data_chickens, sales, list_sales_month, list_cost_month, cost_month, chickens_coop, roosters_total, incubator_total, chickens_nest, finances
 
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 
 # global data
-theme, today = "dark-edition", ""
+theme, today = "dark-edition", date.today()
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -66,35 +67,33 @@ def login():
 def home():
 
     global theme, today
-    # eggs from today
-    eggs = Eggs.query.filter_by(date=today).first()
-    condition = True
-
-    if not eggs:
-        condition = False
+    eggs = data_eggs(today)
+    anim = data_chickens()
+    finan = finances(today)
 
     if request.method == "POST":
 
         if not request.form.get("points"):
             return redirect("/")
 
+        quantity = int(request.form.get("points"))
+
         # new eggs with no data in database
-        if condition == False:
-            quantity = int(request.form.get("points"))
-            eggs = Eggs(quantity)
-            db.session.add(eggs)
+        if eggs[0] == 0:
+            eggie = Eggs(quantity)
+            db.session.add(eggie)
             db.session.commit()
-            return render_template('./index.html', color=theme, quantity=quantity)
+            eggs = data_eggs(today)
+            return render_template('./index.html', color=theme, eggs=eggs, anim=anim, finan=finan)
 
         # update today eggs
-        eggs.quantity = eggs.quantity + int(request.form.get("points"))
-        db.session.merge(eggs)
+        eggie = Eggs.query.filter_by(date=today).first()
+        eggie.quantity = eggie.quantity + int(request.form.get("points"))
         db.session.commit()
-        return render_template('./index.html', color=theme, quantity=eggs.quantity)
+        eggs = data_eggs(today)
+        return render_template('./index.html', color=theme, eggs=eggs, anim=anim, finan=finan)
 
-    if condition == True:
-        return render_template('./index.html', color=theme, quantity=eggs.quantity)
-    return render_template('./index.html', color=theme, quantity=0)
+    return render_template('./index.html', color=theme, eggs=eggs, anim=anim, finan=finan)
 
 
 @app.route('/gallineros.html', methods=["GET", "POST"])
@@ -104,6 +103,8 @@ def gallineros():
     global theme, today
 
     data = ChickenCoop.query.all()
+    totalc = chickens_coop()
+    totalr = roosters_total()
     condition = True
 
     if not data:
@@ -114,9 +115,9 @@ def gallineros():
         if not request.form.get("name") or not request.form.get("chickens") or not request.form.get("roosters"):
             if condition == False:
                 return render_template("./gallineros.html", message="Debe ingresar todos los datos", warning=True,
-                                       color=theme, coop=[])
+                                       color=theme, coop=[], totalc=totalc, totalr=totalr)
             return render_template("./gallineros.html", message="Debe ingresar todos los datos", warning=True,
-                                   color=theme, coop=data)
+                                   color=theme, coop=data, totalc=totalc, totalr=totalr)
 
         name = request.form.get("name")
         chickens = int(request.form.get("chickens"))
@@ -130,7 +131,7 @@ def gallineros():
             db.session.add(update)
             db.session.commit()
             coop.append(update)
-            return render_template('./gallineros.html', color=theme, coop=coop)
+            return render_template('./gallineros.html', color=theme, coop=coop, totalc=totalc, totalr=totalr)
 
         update = ChickenCoop.query.filter_by(name=name).first()
 
@@ -140,7 +141,7 @@ def gallineros():
             db.session.add(update)
             db.session.commit()
             data = ChickenCoop.query.all()
-            return render_template('./gallineros.html', color=theme, coop=data)
+            return render_template('./gallineros.html', color=theme, coop=data, totalc=totalc, totalr=totalr)
 
         # update coop
         update = ChickenCoop.query.filter_by(name=name).first()
@@ -150,11 +151,11 @@ def gallineros():
         db.session.merge(update)
         db.session.commit()
         data = ChickenCoop.query.all()
-        return render_template('./gallineros.html', color=theme, coop=data)
+        return render_template('./gallineros.html', color=theme, coop=data, totalc=totalc, totalr=totalr)
 
     if condition == True:
-        return render_template('./gallineros.html', color=theme, coop=data)
-    return render_template('./gallineros.html', color=theme, coop=[])
+        return render_template('./gallineros.html', color=theme, coop=data, totalc=totalc, totalr=totalr)
+    return render_template('./gallineros.html', color=theme, coop=[], totalc=totalc, totalr=totalr)
 
 
 @app.route('/delete_gall', methods=["GET", "POST"])
@@ -183,6 +184,7 @@ def incubadoras():
     global theme, today
 
     data = Incubator.query.all()
+    total = incubator_total()
     condition = True
 
     if not data:
@@ -193,9 +195,9 @@ def incubadoras():
         if not request.form.get("name") or not request.form.get("quantity") or not request.form.get("date_start") or not request.form.get("date_end"):
             if condition == False:
                 return render_template("./incubadoras.html", message="Debe ingresar todos los datos", warning=True,
-                                       color=theme, inc=[], today=today)
+                                       color=theme, inc=[], today=today, total=total)
             return render_template("./incubadoras.html", message="Debe ingresar todos los datos", warning=True,
-                                   color=theme, inc=data, today=today)
+                                   color=theme, inc=data, today=today, total=total)
 
         name = request.form.get("name")
         eggs = int(request.form.get("quantity"))
@@ -209,7 +211,7 @@ def incubadoras():
             db.session.add(update)
             db.session.commit()
             inc.append(update)
-            return render_template('./incubadoras.html', color=theme, inc=inc, today=today)
+            return render_template('./incubadoras.html', color=theme, inc=inc, today=today, total=total)
 
         update = Incubator.query.filter_by(name=name).first()
 
@@ -219,7 +221,7 @@ def incubadoras():
             db.session.add(update)
             db.session.commit()
             data = Incubator.query.all()
-            return render_template('./incubadoras.html', color=theme, inc=data, today=today)
+            return render_template('./incubadoras.html', color=theme, inc=data, today=today, total=total)
 
         # update incubator
         update = Incubator.query.filter_by(name=name).first()
@@ -230,11 +232,11 @@ def incubadoras():
         db.session.merge(update)
         db.session.commit()
         data = Incubator.query.all()
-        return render_template('./incubadoras.html', color=theme, inc=data, today=today)
+        return render_template('./incubadoras.html', color=theme, inc=data, today=today, total=total)
 
     if condition == True:
-        return render_template('./incubadoras.html', color=theme, inc=data, today=today)
-    return render_template('./incubadoras.html', color=theme, inc=[], today=today)
+        return render_template('./incubadoras.html', color=theme, inc=data, today=today, total=total)
+    return render_template('./incubadoras.html', color=theme, inc=[], today=today, total=total)
 
 
 @app.route('/delete_inc', methods=["GET", "POST"])
@@ -262,6 +264,7 @@ def ponederos():
     global theme, today
 
     data = Nest.query.all()
+    total = chickens_nest()
     condition = True
 
     if not data:
@@ -272,9 +275,9 @@ def ponederos():
         if not request.form.get("name") or not request.form.get("quantity") or not request.form.get("date_start") or not request.form.get("date_end"):
             if condition == False:
                 return render_template("./ponederos.html", message="Debe ingresar todos los datos", warning=True,
-                                       color=theme, pon=[], today=today)
+                                       color=theme, pon=[], today=today, total=total)
             return render_template("./ponederos.html", message="Debe ingresar todos los datos", warning=True,
-                                   color=theme, pon=data, today=today)
+                                   color=theme, pon=data, today=today, total=total)
 
         name = request.form.get("name")
         chickens = int(request.form.get("quantity"))
@@ -288,7 +291,7 @@ def ponederos():
             db.session.add(update)
             db.session.commit()
             inc.append(update)
-            return render_template('./ponederos.html', color=theme, inc=inc, today=today)
+            return render_template('./ponederos.html', color=theme, inc=inc, today=today, total=total)
 
         update = Nest.query.filter_by(name=name).first()
 
@@ -298,7 +301,7 @@ def ponederos():
             db.session.add(update)
             db.session.commit()
             data = Nest.query.all()
-            return render_template('./ponederos.html', color=theme, inc=data, today=today)
+            return render_template('./ponederos.html', color=theme, inc=data, today=today, total=total)
 
         # update Nest
         update = Nest.query.filter_by(name=name).first()
@@ -309,11 +312,11 @@ def ponederos():
         db.session.merge(update)
         db.session.commit()
         data = Nest.query.all()
-        return render_template('./ponederos.html', color=theme, inc=data, today=today)
+        return render_template('./ponederos.html', color=theme, inc=data, today=today, total=total)
 
     if condition == True:
-        return render_template('./ponederos.html', color=theme, inc=data, today=today)
-    return render_template('./ponederos.html', color=theme, inc=[], today=today)
+        return render_template('./ponederos.html', color=theme, inc=data, today=today, total=total)
+    return render_template('./ponederos.html', color=theme, inc=[], today=today, total=total)
 
 
 @app.route('/delete_pon', methods=["GET", "POST"])
@@ -341,20 +344,17 @@ def costos():
 
     global theme, today
 
-    data = Cost.query.order_by(Cost.date).all()
-    condition = True
-
-    if not data:
-        condition = False
+    data = list_cost_month(today.month)
+    total = cost_month(today.month)
 
     if request.method == "POST":
 
         if not request.form.get("name") or not request.form.get("quantity") or not request.form.get("unitary")or not request.form.get("total"):
-            if condition == False:
+            if data == []:
                 return render_template('./costos.html', message="Debe ingresar todos los datos", warning=True,
-                                       color=theme, cost=[])
+                                       color=theme, cost=[], total=total)
             return render_template('./costos.html', message="Debe ingresar todos los datos ", warning=True,
-                                   color=theme, cost=data)
+                                   color=theme, cost=data, total=total)
 
         name = request.form.get("name")
         quantity = int(request.form.get("quantity"))
@@ -364,12 +364,10 @@ def costos():
         new = Cost(name, quantity, unitary, total)
         db.session.add(new)
         db.session.commit()
-        data = Cost.query.order_by(Cost.date).all()
-        return render_template("./costos.html", color=theme, cost=data)
+        data = list_cost_month(today.month)
+        return render_template("./costos.html", color=theme, cost=data, total=total)
 
-    if condition == True:
-        return render_template("./costos.html", color=theme, cost=data)
-    return render_template("./costos.html", color=theme, cost=[])
+    return render_template("./costos.html", color=theme, cost=data, total=total)
 
 
 @app.route('/delete_cost', methods=["GET", "POST"])
@@ -398,9 +396,11 @@ def ventas():
 
     global theme, today
 
-    data = Sales.query.order_by(Sales.date).all()
+    data = list_sales_month(today.month)
+    total = sales(today.month)
     prices = UnitaryPrice.query.all()
     condition = True
+
 
     if not data:
         condition = False
@@ -410,9 +410,9 @@ def ventas():
         if not request.form.get("name") or not request.form.get("quantity") or not request.form.get("unitary")or not request.form.get("desc"):
             if condition == False:
                 return render_template('./ventas.html', message="Debe ingresar todos los datos", warning=True,
-                                       color=theme, sales=[], prices=prices)
+                                       color=theme, sales=[], prices=prices, total=total)
             return render_template('./ventas.html', message="Debe ingresar todos los datos ", warning=True,
-                                   color=theme, sales=data, prices=prices)
+                                   color=theme, sales=data, prices=prices, total=total)
 
         name = request.form.get("name")
         quantity = int(request.form.get("quantity"))
@@ -423,11 +423,11 @@ def ventas():
         db.session.add(new)
         db.session.commit()
         data = Sales.query.order_by(Sales.date).all()
-        return render_template("./ventas.html", color=theme, sales=data, prices=prices)
+        return render_template("./ventas.html", color=theme, sales=data, prices=prices, total=total)
 
     if condition == True:
-        return render_template("./ventas.html", color=theme, sales=data, prices=prices)
-    return render_template("./ventas.html", color=theme, sales=[], prices=prices)
+        return render_template("./ventas.html", color=theme, sales=data, prices=prices, total=total)
+    return render_template("./ventas.html", color=theme, sales=[], prices=prices, total=total)
 
 
 @app.route('/delete_sale', methods=["GET", "POST"])

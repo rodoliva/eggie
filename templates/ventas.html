@@ -111,6 +111,7 @@
               <div class="table-responsive">
                 <table class="table">
                   <thead class="text-warning">
+                  <tr>
                     <th>ID</th>
                     <th>Descripción</th>
                     <th>Cantidad</th>
@@ -118,18 +119,31 @@
                     <th>Descuento</th>
                     <th>Total</th>
                     <th>Fecha</th>
+                  </tr>
                   </thead>
-                      {% for item in sales %}
-                      <tr>
-                          <td>{{item.id}}</td>
-                          <td>{{item.item}}</td>
-                          <td>{{item.quantity}}</td>
-                          <td>{{item.un_income}}</td>
-                          <td>{{item.desc}}</td>
-                          <td>{{item.income}}</td>
-                          <td>{{item.date}}</td>
-                      </tr>
-                      {% endfor %}
+                  <tfoot>
+                  <tr class="text-warning">
+                    <td ><b>Total:</b> </td>
+                    <td colspan="1"></td>
+                    <td><b>{{total[0]}}</b></td>
+                    <td colspan="2"></td>
+                    <td><b>{{total[1]}}</b></td>
+                  </tr>
+                  </tfoot>
+                  <tbody>
+                    {% for item in sales %}
+                    <tr>
+                        <td>{{item.id}}</td>
+                        <td>{{item.item}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.un_income}}</td>
+                        <td>{{item.desc}}</td>
+                        <td>{{item.income}}</td>
+                        <td>{{item.date}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+
                 </table>
               </div>
             </div>
