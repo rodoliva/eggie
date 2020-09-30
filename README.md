@@ -4,8 +4,6 @@ Currently in my country a concept has gained strength, the awareness of the qual
 
 My project is aimed at a specific group, called happy chickens, eggie is management web application that seeks to help these small producers who really take care of their chickens and want to sell what they do not consume, and in this way reduce their costs.
 
-![Screen record Gif]()
-
 
 ## Database
 
