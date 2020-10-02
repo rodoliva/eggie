@@ -39,6 +39,9 @@ def prom_eggs_month(month):
             total += item.quantity
             count += 1
 
+    if count == 0:
+        count = 1
+
     return round(total / count)
 
 

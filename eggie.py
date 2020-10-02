@@ -131,6 +131,8 @@ def gallineros():
             db.session.add(update)
             db.session.commit()
             coop.append(update)
+            totalc = chickens_coop()
+            totalr = roosters_total()
             return render_template('./gallineros.html', color=theme, coop=coop, totalc=totalc, totalr=totalr)
 
         update = ChickenCoop.query.filter_by(name=name).first()
@@ -141,6 +143,8 @@ def gallineros():
             db.session.add(update)
             db.session.commit()
             data = ChickenCoop.query.all()
+            totalc = chickens_coop()
+            totalr = roosters_total()
             return render_template('./gallineros.html', color=theme, coop=data, totalc=totalc, totalr=totalr)
 
         # update coop
@@ -151,6 +155,8 @@ def gallineros():
         db.session.merge(update)
         db.session.commit()
         data = ChickenCoop.query.all()
+        totalc = chickens_coop()
+        totalr = roosters_total()
         return render_template('./gallineros.html', color=theme, coop=data, totalc=totalc, totalr=totalr)
 
     if condition == True:
@@ -211,6 +217,7 @@ def incubadoras():
             db.session.add(update)
             db.session.commit()
             inc.append(update)
+            total = incubator_total()
             return render_template('./incubadoras.html', color=theme, inc=inc, today=today, total=total)
 
         update = Incubator.query.filter_by(name=name).first()
@@ -221,6 +228,7 @@ def incubadoras():
             db.session.add(update)
             db.session.commit()
             data = Incubator.query.all()
+            total = incubator_total()
             return render_template('./incubadoras.html', color=theme, inc=data, today=today, total=total)
 
         # update incubator
@@ -232,6 +240,7 @@ def incubadoras():
         db.session.merge(update)
         db.session.commit()
         data = Incubator.query.all()
+        total = incubator_total()
         return render_template('./incubadoras.html', color=theme, inc=data, today=today, total=total)
 
     if condition == True:
@@ -291,6 +300,7 @@ def ponederos():
             db.session.add(update)
             db.session.commit()
             inc.append(update)
+            total = chickens_nest()
             return render_template('./ponederos.html', color=theme, inc=inc, today=today, total=total)
 
         update = Nest.query.filter_by(name=name).first()
@@ -301,6 +311,7 @@ def ponederos():
             db.session.add(update)
             db.session.commit()
             data = Nest.query.all()
+            total = chickens_nest()
             return render_template('./ponederos.html', color=theme, inc=data, today=today, total=total)
 
         # update Nest
@@ -312,6 +323,7 @@ def ponederos():
         db.session.merge(update)
         db.session.commit()
         data = Nest.query.all()
+        total = chickens_nest()
         return render_template('./ponederos.html', color=theme, inc=data, today=today, total=total)
 
     if condition == True:
@@ -345,16 +357,16 @@ def costos():
     global theme, today
 
     data = list_cost_month(today.month)
-    total = cost_month(today.month)
+    totald = cost_month(today.month)
 
     if request.method == "POST":
 
         if not request.form.get("name") or not request.form.get("quantity") or not request.form.get("unitary")or not request.form.get("total"):
             if data == []:
                 return render_template('./costos.html', message="Debe ingresar todos los datos", warning=True,
-                                       color=theme, cost=[], total=total)
+                                       color=theme, cost=[], total=totald)
             return render_template('./costos.html', message="Debe ingresar todos los datos ", warning=True,
-                                   color=theme, cost=data, total=total)
+                                   color=theme, cost=data, total=totald)
 
         name = request.form.get("name")
         quantity = int(request.form.get("quantity"))
@@ -365,9 +377,10 @@ def costos():
         db.session.add(new)
         db.session.commit()
         data = list_cost_month(today.month)
-        return render_template("./costos.html", color=theme, cost=data, total=total)
+        totald = cost_month(today.month)
+        return render_template("./costos.html", color=theme, cost=data, total=totald)
 
-    return render_template("./costos.html", color=theme, cost=data, total=total)
+    return render_template("./costos.html", color=theme, cost=data, total=totald)
 
 
 @app.route('/delete_cost', methods=["GET", "POST"])
@@ -423,6 +436,7 @@ def ventas():
         db.session.add(new)
         db.session.commit()
         data = Sales.query.order_by(Sales.date).all()
+        total = sales(today.month)
         return render_template("./ventas.html", color=theme, sales=data, prices=prices, total=total)
 
     if condition == True:
